@@ -1,0 +1,8 @@
+#Ignorar modulos
+node_modules
+#Ignorar credenciales  API
+.env
+#Ignorar carpetas
+.angular
+.vscode
+.mvn
