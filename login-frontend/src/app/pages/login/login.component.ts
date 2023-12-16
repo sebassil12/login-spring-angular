@@ -9,7 +9,7 @@ import { LoginRequest } from 'src/app/services/auth/LoginRequest';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  loginError:string = "";
   loginForm = this.formBuilder.group({
     email:['asilva@gmail.com',[Validators.required, Validators.email]],
     password:['', Validators.required],
@@ -38,14 +38,16 @@ export class LoginComponent implements OnInit {
           console.log(userData)
         },
         error: (errorData) =>{
-          console.error(errorData)
+          console.error(errorData);
+          this.loginError=errorData
         },
         complete:()=>{
-          console.log("Login completed")
+          console.log("Login completed");
+          this.router.navigateByUrl('/inicio');
+          this.loginForm.reset();
         }
       });
-      this.router.navigateByUrl('/inicio');
-      this.loginForm.reset();
+     
 
     }
     else{
