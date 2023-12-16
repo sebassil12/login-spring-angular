@@ -1,5 +1,7 @@
 package com.auth.login.Config;
 
+
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.auth.login.User.UserRepository;
-
+    
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -20,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
+
+    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
 
@@ -35,7 +39,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    private UserDetailsService userDetailsService() {
+    public UserDetailsService userDetailsService() {
         return username -> userRepository.findByUsername(username)
         .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }

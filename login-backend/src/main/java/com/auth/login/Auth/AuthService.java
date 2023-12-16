@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.auth.login.Jwt.JwtService;
+import com.auth.login.User.Role;
 import com.auth.login.User.User;
 import com.auth.login.User.UserRepository;
 
@@ -36,6 +37,7 @@ public class AuthService {
                     .firstname(register.getFirstname())
                     .lastname(register.getLastname())
                     .country(register.getCountry())
+                    .role(Role.USER)
                     .build();
         userRepository.save(user);
 

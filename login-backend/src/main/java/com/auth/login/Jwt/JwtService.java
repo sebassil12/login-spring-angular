@@ -8,6 +8,7 @@ import java.security.Key;
 
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -16,7 +17,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 
-
+@Service
 public class JwtService {
     private static final String SECRET_KEY = "A1B2C3D4E5F6G7H8I92023";
 
@@ -31,14 +32,13 @@ public class JwtService {
             .setSubject(user.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis()+1000*60*24))
-            .signWith(getKey(), SignatureAlgorithm.HS256)
+            .signWith(getKey())
             .compact();
 
     }
 
     private Key getKey() {
-        byte[] KeyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(KeyBytes);
+        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
     public String getUsernameFromToken(String token) {

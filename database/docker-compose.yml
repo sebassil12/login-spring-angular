@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: auth_login
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=authAdmin
+      - POSTGRES_DB=auth
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/postgres_data
+    networks:
+      - spring_network
+ 
+  
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: auth_admin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=pgAdmin
+    ports:
+      - "80:80"
+    volumes:
+      - pg_data:/var/lib/pg_data
+    networks:
+      - spring_network
+ 
+networks:
+  spring_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pg_data:
